@@ -11,11 +11,11 @@ class Hand
   end
 
   def <=>(other_hand)
-    if @choice == other_hand.choice
+    if choice == other_hand.choice
       0
-    elsif @choice == "p" && other_hand.choice == "r" ||
-          @choice == "r" && other_hand.choice == "s" ||
-          @choice == "s" && other_hand.choice == "p"
+    elsif choice == "p" && other_hand.choice == "r" ||
+          choice == "r" && other_hand.choice == "s" ||
+          choice == "s" && other_hand.choice == "p"
       +1
     else
       -1
@@ -23,7 +23,7 @@ class Hand
   end
 
   def display_winning_message
-    case @choice
+    case choice
     when "p"
       puts "Paper wraps rock!"
     when "r"
@@ -72,6 +72,8 @@ class Game
   def compare_hands
     if human.hand == computer.hand
       puts "It's a tie!"
+      puts "#{human.name} choose #{CHOICES[human.hand.choice].downcase} " +
+           "and #{computer.name} choose #{CHOICES[human.hand.choice].downcase}"
     elsif human.hand > computer.hand
       puts "#{human.name} won!"
       human.hand.display_winning_message
@@ -84,6 +86,7 @@ class Game
   def play
     human.pick_hand
     computer.pick_hand
+    binding.pry
     compare_hands
   end
 end
